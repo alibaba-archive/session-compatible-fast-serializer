@@ -159,8 +159,8 @@ public class SessionKryo {
     }
 
     /**
-     * java.util.PriorityQueue cannot accept a size < 1,so it throw exception when read a empty PriorityQueue.
-     * Handle this is simple,always make sure not pass a size <1 to constructor.
+     * java.util.PriorityQueue cannot accept a size less than 1,so it throw exception when read a empty PriorityQueue.
+     * Handle this is simple,always make sure not pass a size less than 1 to constructor.
      */
     public static class CanEmptyPriorityQueueSerializer extends DefaultSerializers.PriorityQueueSerializer {
         @Override

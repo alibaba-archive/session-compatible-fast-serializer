@@ -39,7 +39,7 @@ import static com.esotericsoftware.kryo.kryo5.util.Util.unsafe;
  * Instead of reading directly from java.io.InputStream.
  * Because byte arrays can be randomly read and written, we can avoid using Chunk-based temporary buffers to achieve compatibility.
  *
- * @param <T>
+ * @param <T> Object type that need to serialize and deserialize.
  */
 public class FastCachedCompatibleFieldSerializer<T> extends FieldSerializer<T> {
     public static final int SHORTER_FIELD_LEN = 255;
@@ -93,9 +93,9 @@ public class FastCachedCompatibleFieldSerializer<T> extends FieldSerializer<T> {
      *     <li>Object metadata sent only once</li>
      *     <li>Type encoding for known types and Encode variable-length fields</li>
      * </ul>
-     * @param kryo
-     * @param output
-     * @param object
+     * @param kryo current kryo instance
+     * @param output object will write to
+     * @param object object need to serialize
      */
     public void write(Kryo kryo, Output output, T object) {
         int pop = pushTypeVariables();
@@ -224,10 +224,10 @@ public class FastCachedCompatibleFieldSerializer<T> extends FieldSerializer<T> {
 
     /**
      * Cache layout compare result for deserialization
-     * @param kryo
-     * @param input
-     * @param type
-     * @return
+     * @param kryo kryo instance
+     * @param input Deserialize input
+     * @param type Deserialize object type
+     * @return Deserialize result
      */
     public T read(Kryo kryo, Input input, Class<? extends T> type) {
         int pop = pushTypeVariables();
